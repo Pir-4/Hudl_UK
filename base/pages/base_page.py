@@ -1,4 +1,5 @@
 from base.logger import BaseLogger
+from selenium.webdriver.common.by import By
 
 
 class BasePage(BaseLogger):
@@ -11,3 +12,8 @@ class BasePage(BaseLogger):
     def open(self):
         self.info(f'Open {self.target_url}')
         self.page.get(self.target_url)
+
+
+    def get_by_id(self, item_id):
+        self.debug(f'Get by id {item_id}')
+        return self.page.find_element(By.ID, item_id)
