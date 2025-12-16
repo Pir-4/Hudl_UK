@@ -4,7 +4,7 @@ from base.logger import logger
 
 
 def open_page(page, expected_page_title, is_close_privacy_window=False):
-    logger.info(f"[Step] Opening page: {page.url}")
+    logger.info("[Step] Opening page")
     page.open()
     assert_equals(
         page.title, expected_page_title, "Title mismatch"
@@ -14,7 +14,7 @@ def open_page(page, expected_page_title, is_close_privacy_window=False):
 
 
 def move_to_login_page(page) -> LogInPage:
-    logger.info(f"[Step] Moving to login page")
+    logger.info("[Step] Moving to login page")
     page.click_login()
     login_page = page.click_hudl_login()
     assert_item_loaded(
