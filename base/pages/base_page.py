@@ -17,3 +17,9 @@ class BasePage(BaseLogger):
     def get_by_id(self, item_id):
         self.debug(f'Get by id {item_id}')
         return self.page.find_element(By.ID, item_id)
+
+    def get_by_data_qa_id(self, data_qa_id: str):
+        self.debug(f'Get by data_qa_id: {data_qa_id}')
+        return self.page.find_element(
+            By.XPATH, f"//*[@data-qa-id='{data_qa_id}']"
+        )
