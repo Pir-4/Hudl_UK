@@ -2,8 +2,7 @@ from .base_page import BasePage
 
 class MainPage(BasePage):
     def close_cookie(self):
-        #onetrust-banner-sdk
-        element = self.get_by_id('onetrust-close-btn-container')
+        element = self.wait_by_id('onetrust-close-btn-container')
         element.click()
 
     def click_login(self):
