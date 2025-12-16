@@ -1,7 +1,7 @@
 from .base_page import BasePage
 
 class MainPage(BasePage):
-    def close_cookie(self):
+    def close_privacy_window(self):
         element = self.get_by_id('onetrust-close-btn-container')
         element.click()
 
