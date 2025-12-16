@@ -1,7 +1,7 @@
 from selenium import webdriver
 
 
-def get_browser(browser_name: str):
+def browser_factory(browser_name: str):
     """
     Return a Selenium WebDriver instance based on the given browser name.
 

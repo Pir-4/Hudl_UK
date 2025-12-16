@@ -1,10 +1,10 @@
 import pytest
-from base.pages import get_browser, MainPage
+from base.pages import browser_factory, MainPage
 from base.config import BROWSER_NAME, TARGET_URL
 
 @pytest.fixture(scope='session')
 def driver(request):
-    with get_browser(BROWSER_NAME) as driver:
+    with browser_factory(BROWSER_NAME) as driver:
         yield driver
 
 
