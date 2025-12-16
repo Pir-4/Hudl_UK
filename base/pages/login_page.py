@@ -28,3 +28,7 @@ class LogInPage(BasePage):
 
     def get_user_main_acc_page(self):
         return UserMainAccPage(self.page)
+
+    def get_error_message(self):
+        element = self.get_by_id("error-cs-email-invalid")
+        return element.get_text()
