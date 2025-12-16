@@ -1,7 +1,7 @@
 from base.config import TEST_EMAIL, TEST_PASSWORD
 from base import steps
-from .constants import MAIN_PAGE_TITLE
 from base.asserts import  assert_item_loaded
+from .constants import MAIN_PAGE_TITLE
 
 
 def test_login(main_page):
