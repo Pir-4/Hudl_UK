@@ -11,7 +11,8 @@ class BasePage(BaseLogger):
         self.target_url = target_url
 
     def _get_wait(self, timeout: int = 10):
-        self.debug(f'Get wait obj with timeout {timeout}')
+        if not timeout:
+            self.debug(f'Get wait obj with timeout {timeout}')
         return WebDriverWait(self.page, timeout)
 
     def _locator_by_id(self, item_id: str) -> tuple[str, str]:
@@ -26,21 +27,17 @@ class BasePage(BaseLogger):
         self.info(f'Open {self.target_url}')
         self.page.get(self.target_url)
 
-    def get_by_id(self, item_id: str):
+    def get_by_id(self, item_id: str, timeout: int = 10):
         locator = self._locator_by_id(item_id)
-        return self.page.find_element(*locator)
+        return self._get_wait(timeout).until(
+            EC.element_to_be_clickable(locator)
+        )
 
-    def wait_by_id(self, item_id: str):
-        locator = self._locator_by_id(item_id)
-        return self._get_wait().until(EC.element_to_be_clickable(locator))
-
-    def get_by_xpath(self, xpath: str):
+    def get_by_xpath(self, xpath: str, timeout: int = 10):
         locator = self._locator_by_xpath(xpath)
-        return self.page.find_element(*locator)
-
-    def wait_by_xpath(self, xpath: str):
-        locator = self._locator_by_xpath(xpath)
-        return self._get_wait().until(EC.element_to_be_clickable(locator))
+        return self._get_wait(timeout).until(
+            EC.element_to_be_clickable(locator)
+        )
 
     def get_by_data_qa_id(self, data_qa_id: str):
         self.debug(f'Get by data_qa_id: {data_qa_id}')
