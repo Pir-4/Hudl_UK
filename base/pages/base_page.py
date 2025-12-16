@@ -18,6 +18,10 @@ class BasePage(BaseLogger):
         self.debug(f'Get by id {item_id}')
         return (By.ID, item_id)
 
+    def _locator_by_xpath(self, xpath: str) -> tuple[str, str]:
+        self.debug(f'Get by xpath {xpath}')
+        return (By.XPATH, xpath)
+
     def open(self):
         self.info(f'Open {self.target_url}')
         self.page.get(self.target_url)
@@ -30,8 +34,15 @@ class BasePage(BaseLogger):
         locator = self._locator_by_id(item_id)
         return self._get_wait().until(EC.element_to_be_clickable(locator))
 
+    def get_by_xpath(self, xpath: str):
+        locator = self._locator_by_xpath(xpath)
+        return self.page.find_element(*locator)
+
+    def wait_by_xpath(self, xpath: str):
+        locator = self._locator_by_xpath(xpath)
+        return self._get_wait().until(EC.element_to_be_clickable(locator))
+
     def get_by_data_qa_id(self, data_qa_id: str):
         self.debug(f'Get by data_qa_id: {data_qa_id}')
-        return self.page.find_element(
-            By.XPATH, f"//*[@data-qa-id='{data_qa_id}']"
-        )
+        locator = self._locator_by_xpath(f"//*[@data-qa-id='{data_qa_id}']")
+        return self.page.find_element(*locator)
