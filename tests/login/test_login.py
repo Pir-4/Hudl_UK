@@ -1,7 +1,9 @@
 from base.config import TEST_EMAIL, TEST_PASSWORD
+from base import steps
+from .constants import MAIN_PAGE_TITLE
 
 def test_login(main_page):
-    main_page.open()
+    steps.open_page(main_page, MAIN_PAGE_TITLE)
     main_page.close_cookie()
     main_page.click_login()
     main_page.click_hudl_login()

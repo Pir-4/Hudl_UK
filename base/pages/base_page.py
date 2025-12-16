@@ -23,9 +23,15 @@ class BasePage(BaseLogger):
         self.debug(f'Get by xpath {xpath}')
         return (By.XPATH, xpath)
 
+    @property
+    def title(self):
+        return self.page.title
+
     def open(self):
         self.info(f'Open {self.target_url}')
         self.page.get(self.target_url)
+        t = self.page.title # 'Hudl • The leader in sports technology, video analysis & data'
+        g = 5
 
     def get_by_id(self, item_id: str, timeout: int = 10):
         locator = self._locator_by_id(item_id)
