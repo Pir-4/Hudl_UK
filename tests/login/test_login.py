@@ -1,7 +1,7 @@
 from base.config import TEST_EMAIL, TEST_PASSWORD
 from base import steps
-from base.asserts import  assert_item_loaded, assert_equals
-from .constants import MAIN_PAGE_TITLE
+from base.asserts import assert_item_loaded, assert_equals
+from .constants import MAIN_PAGE_TITLE, EMAIL_ERROR_MESSAGE
 
 
 def test_happy_login_path(main_page):
@@ -26,5 +26,6 @@ def test_email_input_validation(main_page, email_validator_param):
     else:
         error_message = login_page.get_error_message()
         assert_equals(
-            'Enter a valid email.', error_message, 'Invalid email error message')
-
+            EMAIL_ERROR_MESSAGE, error_message,
+            'Invalid email error message'
+        )
