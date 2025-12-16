@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class BasePage(BaseLogger):
-    def __init__(self, driver, target_url: str):
+    def __init__(self, driver, target_url: str | None = None):
         super().__init__()
         self.page = driver
         self.target_url = target_url
@@ -30,8 +30,6 @@ class BasePage(BaseLogger):
     def open(self):
         self.info(f'Open {self.target_url}')
         self.page.get(self.target_url)
-        t = self.page.title # 'Hudl • The leader in sports technology, video analysis & data'
-        g = 5
 
     def get_by_id(self, item_id: str, timeout: int = 10):
         locator = self._locator_by_id(item_id)
