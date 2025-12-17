@@ -1,4 +1,6 @@
 import pytest
+from base.config import TEST_EMAIL, TEST_PASSWORD
+
 
 @pytest.fixture(params=[
     pytest.param(('test@test.com', True), id='valid'),
@@ -18,4 +20,26 @@ import pytest
     pytest.param(('', False), id='empty'),
 ])
 def email_validator_param(request):
+    return request.param
+
+
+@pytest.fixture(params=[
+    pytest.param(
+        (TEST_EMAIL, TEST_PASSWORD, True),
+        id='valid_email_and_password',
+    ),
+    pytest.param(
+        (TEST_EMAIL, 'wrong_password', False),
+        id='valid_email_wrong_password',
+    ),
+    pytest.param(
+        ('test@gmail.com', TEST_PASSWORD, False),
+        id='wrong_email_valid_password',
+    ),
+    pytest.param(
+        ('test@gmail.com', '', False),
+        id='valid_email_empty_password'
+    ),
+])
+def password_validator_param(request):
     return request.param
