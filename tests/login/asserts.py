@@ -1,8 +1,16 @@
-from base.asserts import assert_equals
+from base.asserts import assert_equals, assert_item_loaded
 from .constants import (
     EMAIL_INVALID_ERROR_MESSAGE, EMAIL_REQUIRED_ERROR_MESSAGE,
     PASSWORD_INCORRECT_ERROR_MESSAGE, PASSWORD_EMPTY_ERROR_MESSAGE,
+    USER_HOMEPAGE_TITLE,
 )
+
+
+def assert_user_home_page(page):
+    assert_item_loaded(
+        page.is_page_loaded, 'User home page'
+    )
+    assert_equals(page.title, USER_HOMEPAGE_TITLE, 'User page title')
 
 
 def assert_username_error(login_page, input_username):

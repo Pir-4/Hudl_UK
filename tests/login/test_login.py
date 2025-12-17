@@ -1,8 +1,10 @@
 from base.config import TEST_EMAIL, TEST_PASSWORD
 from base import steps
 from base.asserts import assert_item_loaded, assert_equals
-from .asserts import assert_username_error, assert_password_error
-from .constants import MAIN_PAGE_TITLE, LOGIN_PAGE_TITLE, USER_HOMEPAGE_TITLE
+from .asserts import (
+    assert_user_home_page, assert_username_error, assert_password_error,
+)
+from .constants import MAIN_PAGE_TITLE, LOGIN_PAGE_TITLE
 
 
 def test_happy_login_path(main_page):
@@ -15,10 +17,7 @@ def test_happy_login_path(main_page):
         login_page, TEST_PASSWORD, True
     )
     # user home page
-    assert_item_loaded(
-        user_home_page.is_page_loaded, 'User home page'
-    )
-    assert_equals(user_home_page.title, USER_HOMEPAGE_TITLE, 'User page title')
+    assert_user_home_page(user_home_page)
 
 
 def test_email_input_validation(main_page, email_validator_param):
@@ -50,13 +49,8 @@ def test_password_input_validation(main_page, password_validator_param):
     )
     # assertion
     if is_right:
-        assert_item_loaded(
-            actual_page.is_page_loaded, 'User home page'
-        )
-        assert_equals(
-            actual_page.title, USER_HOMEPAGE_TITLE, 'User page title'
-        )
+        assert_user_home_page(actual_page)
         return
 
-    assert_equals(login_page.title, LOGIN_PAGE_TITLE, 'Login page title')
+    assert_equals(actual_page.title, LOGIN_PAGE_TITLE, 'Login page title')
     assert_password_error(login_page, input_password)
