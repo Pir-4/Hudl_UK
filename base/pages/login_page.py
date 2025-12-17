@@ -1,3 +1,4 @@
+from selenium.webdriver.support.wait import TimeoutException
 from .base_page import BasePage
 from .user_home_page import UserHomePage
 
@@ -20,10 +21,17 @@ class LogInPage(BasePage):
         return self.get_email_input.is_displayed()
 
     def is_password_input_displayed(self):
-        return self.get_password_input.is_displayed()
+        try:
+            return self.get_password_input.is_displayed()
+        except TimeoutException:
+            return False
 
     def click_continue_button(self):
         element = self.get_by_xpath("//button[text()='Continue']", 0)
+        element.click()
+
+    def click_edit_link(self):
+        element = self.get_by_xpath("//a[text()='Edit']", 0)
         element.click()
 
     def get_user_home_page(self):

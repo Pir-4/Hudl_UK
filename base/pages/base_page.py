@@ -10,7 +10,7 @@ class BasePage(BaseLogger):
         self.page = driver
         self.target_url = target_url
 
-    def _get_wait(self, timeout: int = 10):
+    def _get_wait(self, timeout: int = 2):
         if not timeout:
             self.debug(f'Get wait obj with timeout {timeout}')
         return WebDriverWait(self.page, timeout)

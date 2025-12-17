@@ -7,7 +7,7 @@ from .asserts import (
 from .constants import MAIN_PAGE_TITLE, LOGIN_PAGE_TITLE
 
 
-def test_happy_login_path(main_page):
+def test_login_happy_path(main_page):
     steps.open_page(main_page, MAIN_PAGE_TITLE, True)
     # login
     login_page = steps.move_to_login_page(main_page)
@@ -54,3 +54,17 @@ def test_password_input_validation(main_page, password_validator_param):
 
     assert_equals(actual_page.title, LOGIN_PAGE_TITLE, 'Login page title')
     assert_password_error(login_page, input_password)
+
+def test_edit_username(main_page):
+    steps.open_page(main_page, MAIN_PAGE_TITLE, True)
+    # login
+    login_page = steps.move_to_login_page(main_page)
+    steps.set_username(login_page, TEST_EMAIL, True)
+    assert_item_loaded(
+        login_page.is_password_input_displayed, "Password input"
+    )
+    #
+    login_page.click_edit_link()
+    assert_item_loaded(
+        lambda: not login_page.is_password_input_displayed(), "Password input"
+    )
