@@ -31,13 +31,13 @@ class BasePage(BaseLogger):
         self.info(f'Open {self.target_url}')
         self.page.get(self.target_url)
 
-    def get_by_id(self, item_id: str, timeout: int = 10):
+    def get_by_id(self, item_id: str, timeout: int = 2):
         locator = self._locator_by_id(item_id)
         return self._get_wait(timeout).until(
             EC.element_to_be_clickable(locator)
         )
 
-    def get_by_xpath(self, xpath: str, timeout: int = 10):
+    def get_by_xpath(self, xpath: str, timeout: int = 2):
         locator = self._locator_by_xpath(xpath)
         return self._get_wait(timeout).until(
             EC.element_to_be_clickable(locator)

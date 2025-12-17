@@ -1,6 +1,7 @@
 from .base_page import BasePage
 from .login_page import LogInPage
 
+
 class MainPage(BasePage):
     def close_privacy_window(self):
         element = self.get_by_id('onetrust-close-btn-container')

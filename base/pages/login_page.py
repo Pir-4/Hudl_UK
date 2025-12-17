@@ -2,6 +2,7 @@ from selenium.webdriver.support.wait import TimeoutException
 from .base_page import BasePage
 from .user_home_page import UserHomePage
 
+
 class LogInPage(BasePage):
     @property
     def get_email_input(self):
