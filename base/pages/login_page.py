@@ -36,3 +36,7 @@ class LogInPage(BasePage):
     def get_required_username_error_message(self):
         element = self.get_by_id("error-cs-username-required")
         return element.text
+
+    def get_password_error_message(self):
+        element = self.get_by_id("error-element-password")
+        return element.text

@@ -1,8 +1,8 @@
 from base.config import TEST_EMAIL, TEST_PASSWORD
 from base import steps
-from base.asserts import assert_item_loaded
-from .asserts import assert_username_error
-from .constants import MAIN_PAGE_TITLE
+from base.asserts import assert_item_loaded, assert_equals
+from .asserts import assert_username_error, assert_password_error
+from .constants import MAIN_PAGE_TITLE, LOGIN_PAGE_TITLE, USER_HOMEPAGE_TITLE
 
 
 def test_happy_login_path(main_page):
@@ -16,8 +16,9 @@ def test_happy_login_path(main_page):
     )
     # user home page
     assert_item_loaded(
-        user_home_page.is_page_loaded, 'User Home Page'
+        user_home_page.is_page_loaded, 'User home page'
     )
+    assert_equals(user_home_page.title, USER_HOMEPAGE_TITLE, 'User page title')
 
 
 def test_email_input_validation(main_page, email_validator_param):
@@ -28,6 +29,7 @@ def test_email_input_validation(main_page, email_validator_param):
     login_page = steps.move_to_login_page(main_page)
     steps.set_username(login_page, input_email, True)
     # assertion
+    assert_equals(login_page.title, LOGIN_PAGE_TITLE, 'Login page title')
     if is_display_password:
         assert_item_loaded(
             login_page.is_password_input_displayed, "Password input"
@@ -43,10 +45,18 @@ def test_password_input_validation(main_page, password_validator_param):
     steps.open_page(main_page, MAIN_PAGE_TITLE, True)
     login_page = steps.move_to_login_page(main_page)
     steps.set_username(login_page, input_email, True)
+    actual_page = steps.set_password(
+        login_page, input_password, True, is_right
+    )
     # assertion
     if is_right:
         assert_item_loaded(
-            login_page.is_password_input_displayed, "Password input"
+            actual_page.is_page_loaded, 'User home page'
         )
-    else:
-        assert_username_error(login_page, input_email)
+        assert_equals(
+            actual_page.title, USER_HOMEPAGE_TITLE, 'User page title'
+        )
+        return
+
+    assert_equals(login_page.title, LOGIN_PAGE_TITLE, 'Login page title')
+    assert_password_error(login_page, input_password)

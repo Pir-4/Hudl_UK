@@ -23,21 +23,23 @@ def move_to_login_page(page) -> LogInPage:
     return login_page
 
 
-def set_username(page: LogInPage, username, is_move_next=False):
+def set_username(page: LogInPage, username, is_click_button=True):
     logger.info(f"[Step] Setting username: {username}")
     page.set_email_input(username)
-    if is_move_next:
+    if is_click_button:
         page.click_continue_button()
     return page
 
 
-def set_password(page: LogInPage, password, is_move_next=False) -> UserHomePage | LogInPage:
+def set_password(
+        page: LogInPage, password: str, is_click_button: bool = True,
+        is_move_next: bool = True
+) -> UserHomePage | LogInPage:
     logger.info(f"Setting password: {password}")
     assert_item_loaded(
         page.is_password_input_displayed, "Password input"
     )
     page.set_password_input(password)
-    if is_move_next:
+    if is_click_button:
         page.click_continue_button()
-        return page.get_user_home_page()
-    return page
+    return page.get_user_home_page() if is_move_next else page
