@@ -20,9 +20,11 @@ def assert_username_error(login_page, input_username):
 
 def assert_password_error(login_page, input_username):
     expected_error = PASSWORD_INCORRECT_ERROR_MESSAGE
-    actual_error = login_page.get_password_error_message()
-    if not input_username:
+    if input_username:
+        actual_error = login_page.get_incorrect_password_error_message()
+    else:
         expected_error = PASSWORD_EMPTY_ERROR_MESSAGE
+        actual_error = login_page.get_required_password_error_message()
 
     assert_equals(
         actual_error, expected_error, 'Password error message'
