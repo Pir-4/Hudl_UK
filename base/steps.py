@@ -3,7 +3,7 @@ from base.pages import LogInPage, UserHomePage
 from base.logger import logger
 
 
-def open_page(page, expected_page_title, is_close_privacy_window=False):
+def open_page(page, expected_page_title, is_close_privacy_window=True):
     logger.info("[Step] Opening page")
     page.open()
     assert_equals(
