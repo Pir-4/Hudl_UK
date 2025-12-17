@@ -1,9 +1,13 @@
 from base.asserts import assert_equals, assert_item_loaded
-from base.pages import LogInPage, UserHomePage
+from base.pages import MainPage, LogInPage, UserHomePage
 from base.logger import logger
 
 
-def open_page(page, expected_page_title, is_close_privacy_window=True):
+def open_page(
+        page: MainPage,
+        expected_page_title: str,
+        is_close_privacy_window: bool = True
+):
     logger.info("[Step] Opening page")
     page.open()
     assert_equals(
@@ -13,7 +17,7 @@ def open_page(page, expected_page_title, is_close_privacy_window=True):
         page.close_privacy_window()
 
 
-def move_to_login_page(page) -> LogInPage:
+def move_to_login_page(page: MainPage) -> LogInPage:
     logger.info("[Step] Moving to login page")
     page.click_login()
     login_page = page.click_hudl_login()
@@ -23,7 +27,11 @@ def move_to_login_page(page) -> LogInPage:
     return login_page
 
 
-def set_username(page: LogInPage, username, is_click_button=True):
+def set_username(
+        page: LogInPage,
+        username: str,
+        is_click_button: bool = True
+) -> LogInPage:
     logger.info(f"[Step] Setting username: {username}")
     page.set_email_input(username)
     if is_click_button:
