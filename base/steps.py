@@ -27,7 +27,7 @@ def set_username(page: LogInPage, username, is_move_next=False):
     logger.info(f"[Step] Setting username: {username}")
     page.set_email_input(username)
     if is_move_next:
-        page.click_login2()
+        page.click_continue_button()
     return page
 
 
@@ -38,6 +38,6 @@ def set_password(page: LogInPage, password, is_move_next=False) -> UserMainAccPa
     )
     page.set_password_input(password)
     if is_move_next:
-        page.click_login2()
+        page.click_continue_button()
         return page.get_user_main_acc_page()
     return page

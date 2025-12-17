@@ -22,7 +22,7 @@ class LogInPage(BasePage):
     def is_password_input_displayed(self):
         return self.get_password_input.is_displayed()
 
-    def click_login2(self):
+    def click_continue_button(self):
         element = self.get_by_xpath("//button[text()='Continue']", 0)
         element.click()
 
