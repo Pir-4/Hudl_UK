@@ -1,10 +1,8 @@
 from base.config import TEST_EMAIL, TEST_PASSWORD
 from base import steps
-from base.asserts import assert_item_loaded, assert_equals
+from base.asserts import assert_item_loaded
 from .asserts import assert_username_error
-from .constants import (
-    MAIN_PAGE_TITLE, EMAIL_INVALID_ERROR_MESSAGE, EMAIL_REQUIRED_ERROR_MESSAGE,
-)
+from .constants import MAIN_PAGE_TITLE
 
 
 def test_happy_login_path(main_page):
@@ -23,10 +21,13 @@ def test_happy_login_path(main_page):
 
 
 def test_email_input_validation(main_page, email_validator_param):
+    # data preparation
     input_email, is_display_password = email_validator_param
+    # actions
     steps.open_page(main_page, MAIN_PAGE_TITLE, True)
     login_page = steps.move_to_login_page(main_page)
     steps.set_username(login_page, input_email, True)
+    # assertion
     if is_display_password:
         assert_item_loaded(
             login_page.is_password_input_displayed, "Password input"
