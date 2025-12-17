@@ -1,5 +1,5 @@
 from base.asserts import assert_equals, assert_item_loaded
-from base.pages import LogInPage, UserMainAccPage
+from base.pages import LogInPage, UserHomePage
 from base.logger import logger
 
 
@@ -31,7 +31,7 @@ def set_username(page: LogInPage, username, is_move_next=False):
     return page
 
 
-def set_password(page: LogInPage, password, is_move_next=False) -> UserMainAccPage | LogInPage:
+def set_password(page: LogInPage, password, is_move_next=False) -> UserHomePage | LogInPage:
     logger.info(f"Setting password: {password}")
     assert_item_loaded(
         page.is_password_input_displayed, "Password input"
@@ -39,5 +39,5 @@ def set_password(page: LogInPage, password, is_move_next=False) -> UserMainAccPa
     page.set_password_input(password)
     if is_move_next:
         page.click_continue_button()
-        return page.get_user_main_acc_page()
+        return page.get_user_home_page()
     return page

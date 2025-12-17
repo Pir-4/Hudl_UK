@@ -1,5 +1,5 @@
 from .base_page import BasePage
-from .user_main_account_page import UserMainAccPage
+from .user_home_page import UserHomePage
 
 class LogInPage(BasePage):
     @property
@@ -26,9 +26,13 @@ class LogInPage(BasePage):
         element = self.get_by_xpath("//button[text()='Continue']", 0)
         element.click()
 
-    def get_user_main_acc_page(self):
-        return UserMainAccPage(self.page)
+    def get_user_home_page(self):
+        return UserHomePage(self.page)
 
-    def get_error_message(self):
+    def get_invalid_email_error_message(self):
         element = self.get_by_id("error-cs-email-invalid")
-        return element.get_text()
+        return element.text
+
+    def get_required_username_error_message(self):
+        element = self.get_by_id("error-cs-username-required")
+        return element.text

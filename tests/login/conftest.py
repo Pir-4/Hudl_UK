@@ -8,7 +8,7 @@ import pytest
     pytest.param(
         ('xn--_@-wlcbbeejdu5d6bnh3g.xn--p1ai', False), id='punnycode'
     ),
-    pytest.param(('мой_ящик@лучший.рф', False), id='local_lang'),
+    pytest.param(('мой_ящик@лучший.рф', True), id='local_lang'),
     pytest.param(('user.user2@gatech.global', True), id='with_sub_domain'),
     pytest.param(('twst@gta.globalgatechglobal', True), id='long_domain'),
     pytest.param(('test.test.com', False), id='web_address'),
