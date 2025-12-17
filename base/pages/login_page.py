@@ -1,5 +1,7 @@
+from selenium.webdriver.support.wait import TimeoutException
 from .base_page import BasePage
-from .user_main_account_page import UserMainAccPage
+from .user_home_page import UserHomePage
+
 
 class LogInPage(BasePage):
     @property
@@ -13,6 +15,9 @@ class LogInPage(BasePage):
     def set_email_input(self, email):
         self.get_email_input.send_keys(email)
 
+    def get_email_value(self):
+        return self.get_email_input.get_attribute('value')
+
     def set_password_input(self, password):
         self.get_password_input.send_keys(password)
 
@@ -20,15 +25,34 @@ class LogInPage(BasePage):
         return self.get_email_input.is_displayed()
 
     def is_password_input_displayed(self):
-        return self.get_password_input.is_displayed()
+        try:
+            return self.get_password_input.is_displayed()
+        except TimeoutException:
+            return False
 
     def click_continue_button(self):
         element = self.get_by_xpath("//button[text()='Continue']", 0)
         element.click()
 
-    def get_user_main_acc_page(self):
-        return UserMainAccPage(self.page)
+    def click_edit_link(self):
+        element = self.get_by_xpath("//a[text()='Edit']", 0)
+        element.click()
 
-    def get_error_message(self):
+    def get_user_home_page(self):
+        return UserHomePage(self.page)
+
+    def get_invalid_email_error_message(self):
         element = self.get_by_id("error-cs-email-invalid")
-        return element.get_text()
+        return element.text
+
+    def get_required_username_error_message(self):
+        element = self.get_by_id("error-cs-username-required")
+        return element.text
+
+    def get_incorrect_password_error_message(self):
+        element = self.get_by_id("error-element-password")
+        return element.text
+
+    def get_required_password_error_message(self):
+        element = self.get_by_id("error-cs-password-required")
+        return element.text

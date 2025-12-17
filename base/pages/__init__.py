@@ -1,4 +1,4 @@
 from .browsers import browser_factory
 from .main_page import MainPage
 from .login_page import LogInPage
-from .user_main_account_page import UserMainAccPage
+from .user_home_page import UserHomePage
