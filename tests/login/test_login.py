@@ -34,3 +34,19 @@ def test_email_input_validation(main_page, email_validator_param):
         )
     else:
         assert_username_error(login_page, input_email)
+
+
+def test_password_input_validation(main_page, password_validator_param):
+    # data preparation
+    input_email, input_password, is_right = password_validator_param
+    # actions
+    steps.open_page(main_page, MAIN_PAGE_TITLE, True)
+    login_page = steps.move_to_login_page(main_page)
+    steps.set_username(login_page, input_email, True)
+    # assertion
+    if is_right:
+        assert_item_loaded(
+            login_page.is_password_input_displayed, "Password input"
+        )
+    else:
+        assert_username_error(login_page, input_email)
