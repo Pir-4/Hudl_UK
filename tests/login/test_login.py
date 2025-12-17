@@ -55,6 +55,7 @@ def test_password_input_validation(main_page, password_validator_param):
     assert_equals(actual_page.title, LOGIN_PAGE_TITLE, 'Login page title')
     assert_password_error(login_page, input_password)
 
+
 def test_edit_username(main_page):
     steps.open_page(main_page, MAIN_PAGE_TITLE, True)
     # login
@@ -63,8 +64,14 @@ def test_edit_username(main_page):
     assert_item_loaded(
         login_page.is_password_input_displayed, "Password input"
     )
-    #
     login_page.click_edit_link()
+    # asserts
     assert_item_loaded(
-        lambda: not login_page.is_password_input_displayed(), "Password input"
+        lambda: not login_page.is_password_input_displayed(),
+        "Password input"
+    )
+    assert_equals(
+        login_page.get_email_value(),
+        TEST_EMAIL,
+        'Email address',
     )

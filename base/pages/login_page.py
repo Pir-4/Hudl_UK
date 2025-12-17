@@ -14,6 +14,9 @@ class LogInPage(BasePage):
     def set_email_input(self, email):
         self.get_email_input.send_keys(email)
 
+    def get_email_value(self):
+        return self.get_email_input.get_attribute('value')
+
     def set_password_input(self, password):
         self.get_password_input.send_keys(password)
 
